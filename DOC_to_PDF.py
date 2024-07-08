@@ -4,46 +4,81 @@ import os.path
 # It is going to ask you whether you want to convert the whole folder or just a single file
 # It is going to ask you which file do you want to convert
 # Where do you want the converted file to go? (Desktop?)
+# Implement try except in the code
+
 class Start:
-    def __init__(self):
-        print("H")
 
     def Starter(self):
+        """
+        Function with the main loop
+
+        """
         while True:
+            print("What file do you want to convert?")
+            print("Write name with file extension.")
+            file_name = input()
+            path = FileManager().find_file(file_name, "D:/")
             print("What type of file do you want to convert it to?")
             print("fb2, pdf, doc, docx")
             type_ans = input()
-            if type_ans not in ["fb2", "pdf", "doc", "docx"]:
-                    print("Please try again")
+            if type_ans in ["fb2", "pdf", "doc", "docx"]:
+                # From docx to pdf
+                if file_name[-4:] == "docx":
+                    if type_ans == "pdf":
+                        # you need internet for the convert function to work
+                        convert("C:/Users/Admin/OneDrive/Desktop/Test.docx", "C:/Users/Admin/OneDrive/Desktop/Test.pdf")
+                        break
+
+                # From fb2 to
+                if file_name[-3:] == "fb2":
+                    if type_ans == "pdf":
+                        raise NotImplementedError()
+                        break
+                # From docx to pdf
+                if type_ans == "docx":
+                    if file_name[-3:] == "pdf":
+                        raise NotImplementedError()
+                        break
+                # from doc to
+                if file_name[-3:] == "doc" and type_ans:
+                    raise NotImplementedError()
+                    break
+
+
             else:
-                break
+                print("Please try again")
+
+
 
 
 
 class FileManager:
-    def __init__(self, filename, search_path):
-        self.filename = filename
-        self.search_path = search_path
-
 
     def find_file(self, filename, search_path):
-        result = []
+        """
+        Finds the path to the file
+        :param filename: Name of file you want to find
+        :param search_path: Where do you want to start the search
+        :return: The path of file on the computer
+        """
+        result = ""
         for path, folders, files in os.walk(search_path):
             if filename in files:
-                result.append(os.path.join(path, filename))
-        return result
+                result = os.path.join(path, filename)
+        result = result.split("\\")
+        return "/".join(result)
 
 
 
 
 
 class ConvertManager:
-    def __init__(self):
-        raise NotImplementedError()
+    def docx_to_pdf(self,filepath):
+        """
+        Converts docx extension into pdf extension
+        :param filepath: the path to the file
+        """
+        convert(filepath, "C:/")
 
-    # convert("C:/Users/Admin/OneDrive/Desktop/Test.docx", "C:/Users/Admin/OneDrive/Desktop/Test_pdf.pdf")
-
-
-if __name__ == "__main__":
-    srt = Start()
-    srt.Starter()
+srt = Start()
+srt.Starter()
