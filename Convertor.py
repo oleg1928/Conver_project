@@ -30,7 +30,7 @@ class Start:
             print("What type of file do you want to convert it to?")
             print("fb2, pdf, doc, docx")
             type_ans = input()
-            if type_ans in ["fb2", "pdf", "doc", "docx"]:
+            if type_ans in ["fb2", "pdf", "doc", "docx", "epub"]:
                 # From docx to pdf
                 if file_name[-4:] == "docx":
                     if type_ans == "pdf":
@@ -38,20 +38,26 @@ class Start:
                         convert("C:/Users/Admin/OneDrive/Desktop/Test.docx", "C:/Users/Admin/OneDrive/Desktop/Test.pdf")
                         break
 
-                # From fb2 to
+                # From fb2 to pdf
                 if file_name[-3:] == "fb2":
                     if type_ans == "pdf":
                         ConvertManager().fb2_to_pdf(path, f"C:/Users/Admin/OneDrive/Desktop/{file_name}.pdf") # desktop debugging
                         break
-                # From docx to pdf
-                if type_ans == "docx":
-                    if file_name[-3:] == "pdf":
+                # From pdf to docx
+                if file_name[-3:] == "pdf":
+                    if type_ans == "docx":
                         raise NotImplementedError()
                         break
-                # from doc to
-                if file_name[-3:] == "doc" and type_ans:
-                    raise NotImplementedError()
-                    break
+                # from doc to pdf
+                if file_name[-3:] == "doc":
+                    if type_ans == "pdf":
+                        raise NotImplementedError()
+                        break
+                # from epub to pdf
+                if file_name[-4:] == "epub":
+                    if type_ans == "pdf":
+
+                        break
 
 
             else:
@@ -118,6 +124,7 @@ class ConvertManager:
                 story.append(paragraph)
 
         doc.build(story)
+
 
 
 srt = Start()
